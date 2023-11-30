@@ -8,15 +8,20 @@ class DataSource(ABC):
     def get_monthly_results(self) -> pd.Series:
         """Needs override."""
 
+    @staticmethod
+    def _get_data_dir() -> str:
+        import os
+        return os.path.dirname(__file__)
+
+
 class Wig20(DataSource):
     def __init__(self, price_column='Kurs otwarcia'):
         super().__init__()
         self.price_column = price_column
 
-
     def get_monthly_results(self) -> pd.Series:
         # TODO: Ensure that no months are missing
-        data = pd.read_excel("wig20_to_2023-11-06_indeksy.xls", index_col="Data")
+        data = pd.read_excel(Wig20._get_data_file(), index_col="Data")
         price = data[self.price_column]
         price.index.name = 'Date'
         price.name = 'Price'
@@ -25,6 +30,11 @@ class Wig20(DataSource):
 
         return result
     
+    @staticmethod
+    def _get_data_file() -> str:
+        return Wig20._get_data_dir() + "/wig20_to_2023-11-06_indeksy.xls"
+
+
 class SnP500(DataSource):
     def get_monthly_results(self) -> pd.Series:
         # TODO: Implement this. Should return series similar to Wig20:
