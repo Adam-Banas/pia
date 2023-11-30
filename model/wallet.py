@@ -19,16 +19,16 @@ class Wallet():
         return series
 
     @staticmethod
-    def _calc_gains(asset: DataSource, period: pd.DateOffset) -> pd.Series:
+    def _calc_returns(asset: DataSource, period: pd.DateOffset) -> pd.Series:
         price = asset.get_monthly_results()
         price_after_period = Wallet._add_period(price.copy(), period)
 
-        diffs = price_after_period - price
-        diffs = diffs[diffs.notnull()]
+        returns = (price_after_period - price)/price
+        returns = returns[returns.notnull()]
 
-        return diffs
+        return returns
 
-    def calc_gains(self, period: pd.DateOffset) -> pd.Series:
+    def calc_returns(self, period: pd.DateOffset) -> pd.Series:
         if len(self.assets) == 0:
             raise RuntimeError("No assets defined for this wallet")
         
@@ -36,16 +36,7 @@ class Wallet():
         if len(self.assets) > 1:
             raise RuntimeError("Calculation of gains for more than one asset not implemented")
         
-        return Wallet._calc_gains(self.assets[0], period)
-    
-
-def wallet_statistics(wallet: Wallet):
-    # TODO: Calculate gain/loss statistics:
-    # - For different periods (1m/6m/1y/5y/10y/20y)
-    # - Best/worst/median gain
-    # - % of loss, % of gains
-    pass
-
+        return Wallet._calc_returns(self.assets[0], period)
 
     
 if __name__ == "__main__":
@@ -53,5 +44,5 @@ if __name__ == "__main__":
     wallet = Wallet()
     wallet.add_asset(Wig20())
 
-    gains = wallet.calc_gains(pd.DateOffset(months=60))
+    gains = wallet.calc_returns(pd.DateOffset(months=60))
     print(f'gains: {gains}')
