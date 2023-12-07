@@ -7,6 +7,7 @@ class DataSource(ABC):
     # @abstractmethod
     def get_monthly_results(self) -> pd.Series:
         """Needs override."""
+        raise RuntimeError("get_monthly_results not implemented in derived class")
 
     @staticmethod
     def _get_data_dir() -> str:
@@ -44,3 +45,10 @@ class SnP500(DataSource):
         # - index values are unique, no months are missing
         # - sorted by index values, ascending order
         raise RuntimeError("Not implemented")
+
+if __name__ == "__main__":
+    wig20 = Wig20()
+    price = wig20.get_monthly_results()
+
+    breakpoint()
+    print(f"price: {price}")
