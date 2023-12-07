@@ -1,9 +1,17 @@
 # pia
 Passive investor assistant
 
+Installing requirements:
+```
+pip install -r requirements.txt
+```
+
 Running:
+```
 PYTHONPATH=`pwd` python main.py
+```
 
 Running tests:
-PYTHONPATH=`pwd` pytest data_source/data_source.py
-
+```
+PYTHONPATH=`pwd` pytest tests
+```

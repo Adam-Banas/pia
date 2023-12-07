@@ -2,12 +2,35 @@
 - with ipynb files,
 - with main.py,
 - with pytest
+
 2. Read snp500
+
 3. Wallet with more than one asset
+3.1. Add rebalancing methods
+
 4. Statistics for different periods
+- Also UTs for current statistics code
+
 5. Taxes:
 - profit tax,
 - IKE, IKZE
-6. Broker fees:
+
+6. Add brokers, include broker fees:
 - transaction fee,
-- periodic fee (yearly),
+- periodic fee (yearly / monthly),
+- spread,
+
+7. Extend data source tests
+
+8. First big functionality - calculation of historical results on given wallet:
+  - best / worst / median results,
+  - for given period,
+
+9. Second big functionality - calculate years needed to make enough savings for retirement. First version:
+  - given fixed income / costs structure,
+  - initial savings,
+  - chosen wallet (min/max/median years needed),
+  - all extra income go to the savings,
+9.1. Add option to get some % of extra income to be spent (should increase living cost)
+9.2. Add option to customize income / costs,
+9.3. Add option to compare different plans

@@ -44,24 +44,3 @@ class SnP500(DataSource):
         # - index values are unique, no months are missing
         # - sorted by index values, ascending order
         raise RuntimeError("Not implemented")
-
-
-
-# TODO: Move these UTs to separate file
-def _verify(ds):
-    # TODO: Test actual data, not only types and names. Ideas:
-    # - unique index values
-    # - is sorted
-    # - no months missing
-    price = ds.get_monthly_results()
-    assert price.index.name == 'Date'
-    assert isinstance(price.index, pd.core.indexes.period.PeriodIndex)
-    assert price.name == 'Price'
-
-def test_wig20():
-    wig20 = Wig20()
-    _verify(wig20)
-
-def test_snp500():
-    snp500 = SnP500()
-    _verify(snp500)
