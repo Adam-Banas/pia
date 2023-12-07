@@ -24,7 +24,6 @@ class Wallet():
         price_after_period = Wallet._add_period(price.copy(), period)
 
         returns = (price_after_period - price)/price
-        returns = returns[returns.notnull()]
 
         return returns
 
@@ -32,11 +31,17 @@ class Wallet():
         if len(self.assets) == 0:
             raise RuntimeError("No assets defined for this wallet")
         
-        # TODO: Implement
-        if len(self.assets) > 1:
-            raise RuntimeError("Calculation of gains for more than one asset not implemented")
+        result = None
+        for asset, weight in zip(self.assets, self.weights):
+            res = self._calc_returns(asset, period) * weight
+            if result is None:
+                result = res
+            else:
+                result += res
         
-        return Wallet._calc_returns(self.assets[0], period)
+        result /= sum(self.weights)
+
+        return result[result.notnull()]
 
     
 if __name__ == "__main__":

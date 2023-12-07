@@ -5,7 +5,7 @@
 
 2. Read snp500
 
-3. Wallet with more than one asset
+3. [DONE] Wallet with more than one asset
 3.1. Add rebalancing methods
 
 4. Statistics for different periods
@@ -20,7 +20,7 @@
 - periodic fee (yearly / monthly),
 - spread,
 
-7. Extend data source tests
+7. Extend data source tests - see test_data_source.py file
 
 8. First big functionality - calculation of historical results on given wallet:
   - best / worst / median results,
